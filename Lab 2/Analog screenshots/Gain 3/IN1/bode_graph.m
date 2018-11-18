@@ -30,23 +30,23 @@ disp(mod);
 disp(phase);
 
 figure(3);
-ln1 = plot(freq,mod);
+ln1 = semilogx(freq,mod);
 ln1.LineWidth = 1.5;
 ln1.Marker = 'o';
 title('Magnitude bode plot')
-xlabel('Frequency') 
+xlabel('Frequency [kHz]') 
 ylabel('Magniture [dB]') 
 y = mod(2)-3;
-line([0,700],[y,y],'color', 'red')
+line([10,700],[y,y],'color', 'red')
 line([freq(10),freq(10)],[5,y],'color', 'red')
 
 figure(4)
-ln2 = plot(freq,phase);
+ln2 = semilogx(freq,phase);
 ln2.LineWidth = 1.5;
 ln2.Marker = 'o';
 title('Phase bode plot')
-xlabel('Frequency') 
+xlabel('Frequency [kHz]') 
 ylabel('Phase [degrees]')
 line([freq(10),freq(10)],[-300,phase(10)],'color', 'red')
-line([0,freq(10)],[phase(10),phase(10)],'color', 'red')
+line([10,freq(10)],[phase(10),phase(10)],'color', 'red')
 
