@@ -1,0 +1,25 @@
+* C:\Users\mdotg\Documents\GitHub\Lab\Lab 2\Spice sim\LM324.asc
+XU1 vref N002 vcc 0 N003 LM324
+XU2 vin N006 vcc 0 N005 LM324
+XU3 N004 N001 vcc 0 vout LM324
+XU4 N007 vref vcc 0 vref LM324
+V1 vcc 0 5v
+R1 N001 N003 20K
+R2 vout N001 20K
+R3 N004 N005 20K
+R5 N002 N003 20K
+R6 N002 N006 1.81k
+R7 N005 N006 20K
+R4 vref N004 20K
+V3 vin P001 SINE(0 20mV 100kHz) AC 50mV
+R8 vcc N007 47K
+R9 N007 0 27k
+V2 P001 0 1.83V
+.lib LM324.ti.lib
+.ac dec 1000 1Khz 50kHz100us
+.meas AC gain PARAM V(vout)/V(vin)
+* Ricordarsi di plottare V(vout)/V(vin)
+* .ac dec 1000 1Khz 50kHz
+* .tran 10ms
+.backanno
+.end

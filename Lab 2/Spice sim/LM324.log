@@ -21,23 +21,23 @@ Gmin = 0
 Gmin stepping succeeded in finding the operating point.
 
 
+gain: v(vout)/v(vin)=(23.6614dB,-55.9286°)
 
 
-Date: Mon Nov 19 10:37:46 2018
-Total elapsed time: 4.700 seconds.
+Date: Tue Nov 20 13:13:06 2018
+Total elapsed time: 0.381 seconds.
 
 tnom = 27
 temp = 27
-method = modified trap
-totiter = 85077
-traniter = 83623
-tranpoints = 41613
-accept = 27618
-rejected = 13995
+method = trap
+totiter = 1454
+traniter = 0
+tranpoints = 0
+accept = 0
+rejected = 0
 matrix size = 107
 fillins = 911
 solver = Normal
-Thread vector: 12.0/10.0[2] 7.2/3.1[2] 6.0/4.0[2] 1.8/2.1[1]  2592/500
-Matrix Compiler1: 116.27 KB object code size  38.9/20.0/[15.0]
-Matrix Compiler2: 23.73 KB object code size  8.3/5.4/[3.2]
+Matrix Compiler1:    6056 opcodes
+Matrix Compiler2:    1615 opcodes  5.9/[3.9]/4.6
 
