@@ -29,8 +29,18 @@ end
 disp(mod);
 disp(phase);
 
+error = ones(dim(1),1)*0.25;
+error1 = ones(dim(1),1)*14;
+
+close all;
+
 figure(1);
-ln1 = semilogx(freq,mod);
+%semilogx(freq,mod);
+
+ax = axes();
+ln1 = errorbar(freq, mod, error);
+set(ax, 'XScale', 'log');
+
 ln1.LineWidth = 1.5;
 ln1.Marker = 'o';
 title('Magnitude bode plot')
@@ -41,7 +51,12 @@ line([10,1000],[y,y],'color', 'red')
 line([freq(8),freq(8)],[4,y],'color', 'red')
 
 figure(2)
-ln2 = semilogx(freq,phase);
+%ln2 = semilogx(freq,phase);
+
+ax1 = axes();
+ln2 = errorbar(freq, phase, error1);
+set(ax1, 'XScale', 'log');
+
 ln2.LineWidth = 1.5;
 ln2.Marker = 'o';
 title('Phase bode plot')
