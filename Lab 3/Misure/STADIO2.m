@@ -1,5 +1,7 @@
 close all
 
+Vin = 500;
+
 data = [0.2,512,0
 	0.3,528,20
 	0.5,560,20
@@ -31,7 +33,7 @@ mod = zeros(dim(1),1);
 phase = zeros(dim(1),1);
 for i=1:1:dim
     freq(i)=data(i, 1);
-    mod(i)=20*log10(data(i, 2)/100);
+    mod(i)=20*log10(data(i, 2)/Vin);
     phase(i)=-(data(i, 3).*10^-3).*freq(i).*360;
 end
 

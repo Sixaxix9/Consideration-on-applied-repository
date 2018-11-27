@@ -1,5 +1,7 @@
 close all
 
+Vin = 500;
+
 data = [0.1,728,200
 	0.2,704,260
 	0.3,672,240
@@ -37,7 +39,7 @@ mod = zeros(dim(1),1);
 phase = zeros(dim(1),1);
 for i=1:1:dim
     freq(i)=data(i, 1);
-    mod(i)=20*log10(data(i, 2)/100);
+    mod(i)=20*log10(data(i, 2)/Vin);
     phase(i)=-(data(i, 3).*10^-3).*freq(i).*360;
     if freq(i)>1.8
        phase(i)=-360-phase(i); 
@@ -53,7 +55,7 @@ error1 = ones(dim(1),1)*14;
 figure(3);
 
 ax = axes();
-ln1 = errorbar(freq, mod, I,S);
+ln1 = errorbar(freq, mod, error);
 set(ax, 'XScale', 'log');
 
 %ln1 = semilogx(freq,mod);
