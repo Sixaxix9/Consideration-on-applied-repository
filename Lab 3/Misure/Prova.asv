@@ -8,10 +8,11 @@ r3 = 12000;
 r4 = 27000;
 c1 = 680*10^(-12);
 c2 = 22*10^(-9);
-freq = 1500;
 
-percentage_value_resistor = 5/100;
-percentage_value_capacitor = 20/100;
+freq = 100;
+
+percentage_value_resistor = 1/100;
+percentage_value_capacitor = 10/100;
 
 druno = percentage_value_resistor*r1;
 drdue = percentage_value_resistor*r2;
@@ -21,33 +22,36 @@ drquattro = percentage_value_resistor*r4;
 dcuno = percentage_value_capacitor*c1;
 dcdue = percentage_value_capacitor*c2;
 
-f = (1/(sqrt((-x^2*n*m*runo^2*cuno^2+1)^2+(x*runo*cuno*(m+1))^2)))*(1/(sqrt(x^2*rdue^2*cdue^2+1)))*(1+rtre/rquattro)
-%f = (1+rtre/rquattro)
+f = (1/(sqrt((-x^2*n*m*runo^2*cuno^2+1)^2+(x*runo*cuno*(m+1))^2)))*(1/(sqrt(x^2*rdue^2*cdue^2+1)))*(1+rtre/rquattro);
 
+deltasqrt = sqrt((druno*abs(diff(f,runo)))^2 +  (drdue*abs(diff(f,rdue)))^2 +  (drtre*abs(diff(f,rtre)))^2 + ...
+    (drquattro*abs(diff(f,rquattro)))^2 + (dcuno*abs(diff(f,cuno)))^2 +  (dcdue*abs(diff(f,cdue)))^2);
 
-q = diff(f,runo)
-w = diff(f,rdue)
-e = diff(f,rtre)
-r = diff(f,rquattro)
-t = diff(f,cuno)
-y = diff(f,cdue)
-
-delta = druno*abs(q) +  drdue*abs(w) +  drtre*abs(e) +  drquattro*abs(r) + dcuno*abs(t) +  dcdue*abs(y);
+delta = druno*abs(diff(f,runo)) +  drdue*abs(diff(f,rdue)) +  drtre*abs(diff(f,rtre)) + ...
+    drquattro*abs(diff(f,rquattro)) + dcuno*abs(diff(f,cuno)) +  dcdue*abs(diff(f,cdue));
 
 k = subs(f,{runo,cuno,rdue,cdue,rtre,rquattro,n,m, x},{r1,c1,r2,c2,r3,r4,17,1, freq});
 u = subs(delta,{runo,cuno,rdue,cdue,rtre,rquattro,n,m, x},{r1,c1,r2,c2,r3,r4,17,1, freq});
 
-assex = linspace(100, 10000, 10);
-assey = linspace(100, 10000, 10);
-    for r = 100:1000:10000
-        freq = k;
-        k = subs(f,{runo,cuno,rdue,cdue,rtre,rquattro,n,m, x},{r1,c1,r2,c2,r3,r4,17,1, freq});
-assey(r/100) = double(k);
-    end
-    
-    
 double(k)
-%double(u)
-u = subs(delta,{runo,cuno,rdue,cdue,rtre,rquattro,n,m, x},{r1,c1,r2,c2,r3,r4,17,1, freq});
+double(u)
 
 double(u)/double(k)*100
+
+assex = linspace(100, 10000, 100);
+
+for r = 100:100:10000
+    freq = r;
+    k = subs(f,{runo,cuno,rdue,cdue,rtre,rquattro,n,m, x},{r1,c1,r2,c2,r3,r4,17,1, freq});
+    u = subs(delta,{runo,cuno,rdue,cdue,rtre,rquattro,n,m, x},{r1,c1,r2,c2,r3,r4,17,1, freq});
+    v = subs(deltasqrt,{runo,cuno,rdue,cdue,rtre,rquattro,n,m, x},{r1,c1,r2,c2,r3,r4,17,1, freq});
+
+    assey(r/100 , 1) = double(u)/double(k)*100
+    assez(r/100 , 1) = double(v)/double(k)*100
+
+end
+    
+    plot(assex, assey);
+    hold on
+    
+    

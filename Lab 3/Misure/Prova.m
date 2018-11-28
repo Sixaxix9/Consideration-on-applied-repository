@@ -24,6 +24,9 @@ dcdue = percentage_value_capacitor*c2;
 
 f = (1/(sqrt((-x^2*n*m*runo^2*cuno^2+1)^2+(x*runo*cuno*(m+1))^2)))*(1/(sqrt(x^2*rdue^2*cdue^2+1)))*(1+rtre/rquattro);
 
+deltasqrt = sqrt((druno*abs(diff(f,runo)))^2 +  (drdue*abs(diff(f,rdue)))^2 +  (drtre*abs(diff(f,rtre)))^2 + ...
+    (drquattro*abs(diff(f,rquattro)))^2 + (dcuno*abs(diff(f,cuno)))^2 +  (dcdue*abs(diff(f,cdue)))^2);
+
 delta = druno*abs(diff(f,runo)) +  drdue*abs(diff(f,rdue)) +  drtre*abs(diff(f,rtre)) + ...
     drquattro*abs(diff(f,rquattro)) + dcuno*abs(diff(f,cuno)) +  dcdue*abs(diff(f,cdue));
 
@@ -41,8 +44,15 @@ for r = 100:100:10000
     freq = r;
     k = subs(f,{runo,cuno,rdue,cdue,rtre,rquattro,n,m, x},{r1,c1,r2,c2,r3,r4,17,1, freq});
     u = subs(delta,{runo,cuno,rdue,cdue,rtre,rquattro,n,m, x},{r1,c1,r2,c2,r3,r4,17,1, freq});
+    v = subs(deltasqrt,{runo,cuno,rdue,cdue,rtre,rquattro,n,m, x},{r1,c1,r2,c2,r3,r4,17,1, freq});
+
     assey(r/100 , 1) = double(u)/double(k)*100
+    assez(r/100 , 1) = double(v)/double(k)*100
+
 end
     
     plot(assex, assey);
+    hold on
+    plot(assex, assez);
+
     
