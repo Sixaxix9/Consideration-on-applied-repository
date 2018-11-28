@@ -46,16 +46,18 @@ for i=1:1:dim
     end
 end
 
-disp(mod);
-disp(phase);
+%disp(mod);
+%disp(phase);
 
-error = ones(dim(1),1)*0.5;
+errorp = mod - ;
+errorn = ones(dim(1),1)*0.5;
+
 error1 = ones(dim(1),1)*14;
 
 figure(3);
 
 ax = axes();
-ln1 = errorbar(freq, mod, error);
+ln1 = errorbar(freq, mod, errorn, errorp);
 set(ax, 'XScale', 'log');
 
 %ln1 = semilogx(freq,mod);
