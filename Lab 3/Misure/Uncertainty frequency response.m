@@ -38,9 +38,9 @@ double(u)
 
 double(u)/double(k)*100
 
-assex = linspace(100, 10000, 100);
+assex = linspace(100, 5000, 50);
 
-for r = 100:100:10000
+for r = 100:100:5000
     freq = r;
     k = subs(f,{runo,cuno,rdue,cdue,rtre,rquattro,n,m, x},{r1,c1,r2,c2,r3,r4,17,1, freq});
     u = subs(delta,{runo,cuno,rdue,cdue,rtre,rquattro,n,m, x},{r1,c1,r2,c2,r3,r4,17,1, freq});
@@ -50,9 +50,12 @@ for r = 100:100:10000
     assez(r/100 , 1) = double(v)/double(k)*100
 
 end
-    
+     
+    %semilogx(assex, assey);
     plot(assex, assey);
-    hold on
-    plot(assex, assez);
-
+    title('Uncertainty frequency response')
+    xlabel('Frequency [Hz]') 
+    ylabel('Uncertainty [%]')
     
+    %hold on
+    %plot(assex, assez);
