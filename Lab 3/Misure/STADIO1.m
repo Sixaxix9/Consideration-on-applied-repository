@@ -1,33 +1,32 @@
 close all
+clear all
 
-data = 	
-
-	[
-	0.1,720,200
-	0.2,696,200
-	0.5,584 ,180 
-	0.6,552,180
-	0.7,520,160
-	0.720,504,160
-	0.750,504,160
-    0.8,488,150
-    0.9,456,140
-    1,424,130
-    1.5,320,110
-	2,256,90
-	5,112,40
-	7,80,20
-	10,56,10
+data = 	[
+	0.1,1440,200
+	0.2,1392,200
+	0.5,1168 ,180 
+	0.6,1104,180
+	0.7,1040,160
+	0.720,1008,160
+	0.750,1008,160
+    0.8,976,150
+    0.9,912,140
+    1,848,130
+    1.5,640,110
+	2,512,110
+	5,224,50
+	7,160,37
+	10,112,28
 	];
-
+vin = 1000;
 dim = size(data);
 freq = zeros(dim(1),1);
 mod = zeros(dim(1),1);
 phase = zeros(dim(1),1);
 for i=1:1:dim
     freq(i)=data(i, 1);
-    mod(i)=20*log10(data(i, 2)/100);
-    phase(i)=-(data(i, 3).*10^-6).*freq(i).*360;
+    mod(i)=20*log10(data(i, 2)/vin);
+    phase(i)=-(data(i, 3).*10^-3).*freq(i).*360;
 end
 
 disp(mod);
@@ -49,8 +48,8 @@ title('Magnitude bode plot')
 xlabel('Frequency [kHz]') 
 ylabel('Magniture [dB]') 
 y = mod(2)-3;
-line([10,1000],[y,y],'color', 'red')
-line([freq(10),freq(10)],[5,y],'color', 'red')
+%line([10,1000],[y,y],'color', 'red')
+%line([freq(10),freq(10)],[5,y],'color', 'red')
 
 figure(4)
 %ln2 = semilogx(freq,phase);
@@ -64,5 +63,5 @@ ln2.Marker = 'o';
 title('Phase bode plot')
 xlabel('Frequency [kHz]') 
 ylabel('Phase [degrees]')
-line([freq(10),freq(10)],[-300,phase(10)],'color', 'red')
-line([10,freq(10)],[phase(10),phase(10)],'color', 'red')
+%line([freq(10),freq(10)],[-300,phase(10)],'color', 'red')
+%line([10,freq(10)],[phase(10),phase(10)],'color', 'red')
