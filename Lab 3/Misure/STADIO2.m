@@ -1,31 +1,30 @@
 close all
 
-Vin = 500;
 
-data = [0.2,512,0
-	0.3,528,20
-	0.5,560,20
-	0.6,592,40
-	0.7,624,50
-	0.8,664,60
-	0.9,720,60
-	1.0,784,70
-	1.1,856,80
-	1.2,944,90
-	1.3,1040,116
-	1.4,1100,136
-	1.5,1060,150
-	1.7,864,190
-	2.0,536,180
-	2.2,400,180
-	2.5,280,160
-	2.7,224,150
-	3.0,172,150
-	3.2,148,150
-	3.5,116,130
-	5,54,92
-	7,28,64
-	10,14,44];
+data = [0.2,1024,0
+	0.3,1056,20
+	0.5,1120,20
+	0.6,1184,40
+	0.7,1248,50
+	0.8,1328,60
+	0.9,1440,60
+	1.0,1568,70
+	1.1,1712,80
+	1.2,1888,90
+	1.3,2080,116
+	1.4,2200,136
+	1.5,2120,150
+	1.7,1728,190
+	2.0,1072,180
+	2.2,800,180
+	2.5,560,160
+	2.7,448,150
+	3.0,344,150
+	3.2,296,150
+	3.5,232,130
+	5,108,92
+	7,56,64];
+	%10,28,44
 
 dim = size(data);
 freq = zeros(dim(1),1);
@@ -33,20 +32,52 @@ mod = zeros(dim(1),1);
 phase = zeros(dim(1),1);
 for i=1:1:dim
     freq(i)=data(i, 1);
-    mod(i)=20*log10(data(i, 2)/Vin);
+    mod(i)=20*log10(data(i, 2)/1000);
     phase(i)=-(data(i, 3).*10^-3).*freq(i).*360;
 end
 
 disp(mod);
 disp(phase);
 
-error = ones(dim(1),1)*0.2;
-error1 = ones(dim(1),1)*0.01;
+errorplus = ones(dim(1),1);
+errorminus = ones(dim(1),1);
+
+for i=1:1:dim
+    if i<5
+    errorplus(i) = 20*log10((data(i,2)+ 0.2*200)/Vin) - mod(i);
+    errorminus(i) =mod(i) - 20*log10((data(i,2) - 0.2*200)/Vin);
+    end
+    if i>4
+        if i<15
+        errorplus(i) = 20*log10((data(i,2)+ 0.2*500)/Vin) - mod(i);
+        errorminus(i) =mod(i) - 20*log10((data(i,2) - 0.2*500)/Vin);
+        end
+    end
+    if i>14
+        if i<20
+        errorplus(i) = -20*log10((data(i,2)+ 0.2*200)/Vin) + mod(i);
+        errorminus(i) =-mod(i) + 20*log10((data(i,2) - 0.2*200)/Vin);
+        end
+    end
+    if i>19
+        if i<21
+        errorplus(i) = -20*log10((data(i,2)+ 0.2*100)/Vin) + mod(i);
+        errorminus(i) =-mod(i) + 20*log10((data(i,2) - 0.2*100)/Vin);
+        end
+    end
+    if i>20
+        errorplus(i) = -20*log10((data(i,2)+ 0.2*50)/Vin) + mod(i);
+        errorminus(i) =-mod(i) + 20*log10((data(i,2) - 0.2*50)/Vin);
+    end
+        
+end
+
+error1 = ones(dim(1),1)*14;
 
 figure(3);
 
 ax = axes();
-ln1 = errorbar(freq, mod, error);
+ln1 = errorbar(freq, mod, errorminus*10, errorplus*10);
 set(ax, 'XScale', 'log');
 
 %ln1 = semilogx(freq,mod);
