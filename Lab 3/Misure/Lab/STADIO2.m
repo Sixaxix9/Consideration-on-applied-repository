@@ -26,13 +26,15 @@ data = [0.2,1024,0
 	7,56,64];
 	%10,28,44
 
+    Vin  = 1000
+    
 dim = size(data);
 freq = zeros(dim(1),1);
 mod = zeros(dim(1),1);
 phase = zeros(dim(1),1);
 for i=1:1:dim
     freq(i)=data(i, 1);
-    mod(i)=20*log10(data(i, 2)/1000);
+    mod(i)=20*log10(data(i, 2)/Vin);
     phase(i)=-(data(i, 3).*10^-3).*freq(i).*360;
 end
 
